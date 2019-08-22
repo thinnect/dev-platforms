@@ -19,7 +19,7 @@ uint32_t PLATFORM_Init() {
 	volatile uint32_t i;
 	uint32_t resetCause;
 
-	EMU_DCDCInit_TypeDef dcdcInit = EMU_DCDCINIT_DEFAULT;
+	//EMU_DCDCInit_TypeDef dcdcInit = EMU_DCDCINIT_DEFAULT;
 	CMU_HFXOInit_TypeDef hfxoInit = CMU_HFXOINIT_DEFAULT;
 	CMU_LFXOInit_TypeDef lfxoInit = CMU_LFXOINIT_DEFAULT;
 
@@ -37,7 +37,7 @@ uint32_t PLATFORM_Init() {
 
 	CHIP_Init();
 
-	EMU_DCDCInit(&dcdcInit);
+	//EMU_DCDCInit(&dcdcInit); // DCDC does not work correctly on tsb
 	CMU_OscillatorEnable(cmuOsc_HFRCO, 1, 1);
 	CMU_ClockSelectSet(cmuClock_HF, cmuSelect_HFRCO);
 	CMU_HFXOInit(&hfxoInit);

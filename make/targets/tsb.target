@@ -11,6 +11,7 @@
 $(call includeBoard,tsb)
 
 # Pull in the JTAG adapter
+PROGRAMMER_TRANSPORT = jtag
 $(call includeJtag,ft2232d)
 
 # Specify platforms supported by this build target

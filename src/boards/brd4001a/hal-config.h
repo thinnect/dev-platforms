@@ -10,7 +10,7 @@
 #ifndef HAL_CONFIG_H
 #define HAL_CONFIG_H
 
-#warning "hal-config-board"
+#pragma message "Using hal-config-board.h for hal-config.h"
 #include "hal-config-board.h"
 
 #endif//HAL_CONFIG_H

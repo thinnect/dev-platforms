@@ -15,6 +15,13 @@
 #include "em_gpio.h"
 #include "em_msc.h"
 
+#define PLATFORM_LED0_PORT gpioPortB
+#define PLATFORM_LED0_PIN 12
+#define PLATFORM_LED1_PORT gpioPortB
+#define PLATFORM_LED1_PIN 11
+#define PLATFORM_LED2_PORT gpioPortA
+#define PLATFORM_LED2_PIN 5
+
 uint32_t PLATFORM_Init() {
 	volatile uint32_t i;
 	uint32_t resetCause;
@@ -57,28 +64,34 @@ void PLATFORM_RadioInit() {
 
 void PLATFORM_LedsInit() {
 	CMU_ClockEnable(cmuClock_GPIO, true);
-	GPIO_PinModeSet(gpioPortB, 12, gpioModePushPull, 0);
-	GPIO_PinModeSet(gpioPortB, 11, gpioModePushPull, 0);
-	GPIO_PinModeSet(gpioPortA, 5, gpioModePushPull, 0);
+	GPIO_PinModeSet(PLATFORM_LED0_PORT, PLATFORM_LED0_PIN, gpioModePushPull, 0);
+	GPIO_PinModeSet(PLATFORM_LED1_PORT, PLATFORM_LED1_PIN, gpioModePushPull, 0);
+	GPIO_PinModeSet(PLATFORM_LED2_PORT, PLATFORM_LED2_PIN, gpioModePushPull, 0);
 }
 
 void PLATFORM_LedsSet(uint8_t leds) {
 	if(leds & 1) {
-		GPIO_PinOutSet(gpioPortB, 12);
+		GPIO_PinOutSet(PLATFORM_LED0_PORT, PLATFORM_LED0_PIN);
 	}
 	else {
-		GPIO_PinOutClear(gpioPortB, 12);
+		GPIO_PinOutClear(PLATFORM_LED0_PORT, PLATFORM_LED0_PIN);
 	}
 	if(leds & 2) {
-		GPIO_PinOutSet(gpioPortB, 11);
+		GPIO_PinOutSet(PLATFORM_LED1_PORT, PLATFORM_LED1_PIN);
 	}
 	else {
-		GPIO_PinOutClear(gpioPortB, 11);
+		GPIO_PinOutClear(PLATFORM_LED1_PORT, PLATFORM_LED1_PIN);
 	}
 	if(leds & 4) {
-		GPIO_PinOutSet(gpioPortA, 5);
+		GPIO_PinOutSet(PLATFORM_LED2_PORT, PLATFORM_LED2_PIN);
 	}
 	else {
-		GPIO_PinOutClear(gpioPortA, 5);
+		GPIO_PinOutClear(PLATFORM_LED2_PORT, PLATFORM_LED2_PIN);
 	}
+}
+
+uint8_t PLATFORM_LedsGet() {
+	return (GPIO_PinOutGet(PLATFORM_LED0_PORT, PLATFORM_LED0_PIN) << 0)
+	      |(GPIO_PinOutGet(PLATFORM_LED1_PORT, PLATFORM_LED1_PIN) << 1)
+	      |(GPIO_PinOutGet(PLATFORM_LED2_PORT, PLATFORM_LED2_PIN) << 2);
 }

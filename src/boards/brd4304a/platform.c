@@ -1,21 +1,21 @@
 /*
- * SiLabs Wireless Starter Kit Mainboard BRD4001A platform setup
- * for Series1 boards.
- * Supported radio boards:
- *                         - BRD4161A
- *                         - BRD4162A
- *                         - ... probably others
+ * SiLabs Radio Board BRD4304A platform setup.
+ *
+ * The BRD4304A has an LNA (Sensitivity -105 dBm) and needs some extra setup in
+ * PLATFORM_RadioInit.
  *
  * Copyright Thinnect Inc. 2019
  * @license MIT
- * @author Madis Uusjärv, Raido Pahtma
+ * @author Raido Pahtma
  */
 #include "platform.h"
+#include <stdio.h>
 #include <stdint.h>
 #include "em_chip.h"
 #include "em_rmu.h"
 #include "em_emu.h"
 #include "em_cmu.h"
+#include "em_gpio.h"
 #include "em_msc.h"
 
 uint32_t PLATFORM_Init()
@@ -57,5 +57,16 @@ uint32_t PLATFORM_Init()
 
 void PLATFORM_RadioInit()
 {
-	// Nothing to do
+    CMU_ClockEnable(cmuClock_GPIO, true);
+    CMU_ClockEnable(cmuClock_PRS, true);
+
+	// The module has an LNA, which needs PRS setup!
+	GPIO_PinModeSet(gpioPortD, 10, gpioModePushPullAlternate, 0);
+	GPIO_PinModeSet(gpioPortD, 11, gpioModePushPullAlternate, 0);
+	PRS->CH[6].CTRL = PRS_RAC_ACTIVE | PRS_CH_CTRL_ASYNC;
+	PRS->CH[5].CTRL = PRS_RAC_LNAEN | PRS_CH_CTRL_ASYNC;
+	PRS->CH[6].CTRL = PRS_RAC_PAEN | PRS_CH_CTRL_ASYNC | PRS_CH_CTRL_ORPREV;
+	PRS->ROUTELOC1 |= PRS_ROUTELOC1_CH5LOC_LOC0 | PRS_ROUTELOC1_CH6LOC_LOC13;
+	BUS_RegBitWrite(&PRS->ROUTEPEN, _PRS_ROUTEPEN_CH6PEN_SHIFT, 1);
+	BUS_RegBitWrite(&PRS->ROUTEPEN, _PRS_ROUTEPEN_CH5PEN_SHIFT, 1);
 }

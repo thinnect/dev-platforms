@@ -35,6 +35,11 @@ BOARD_SRC_DIR       := $(BOARD_MAKE_DIR)/../../src/boards/$(BOARD_NAME)
 INCLUDES            += -I$(BOARD_SRC_DIR)
 SOURCES             += $(BOARD_SRC_DIR)/platform.c
 
+# Pull in default OS configuration, after possible platform-specific overrides
+ifneq ($(CMSIS_CONFIG_DIR),)
+INCLUDES            += -I$(CMSIS_CONFIG_DIR)
+endif
+
 # Allocate UUID for this board
 # NB! UNIQUE: MUST NOT BE USED IN OTHER BOARDS.
 # NB! CONST: CANNOT BE CHANGED FOR THIS BOARD.

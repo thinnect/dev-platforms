@@ -15,17 +15,18 @@ tested board .target and .board files with most likely minimal changes.
 Tested boards:
 - BRD4161A\
   target: `brd4161a-mb`
-- BRD4161A\
+- BRD4162A\
   target: `brd4162a-mb`
 - BRD4304A\
   target: `brd4304a-mb`
 
 # Thunderboard Sense and Thunderboard Sense 2
 
-target: `thunderboard`
-target: `thunderboard2`
+SiLabs SLTB001A Development kit, BRD4160A. (EOL by SiLabs)\
+  target: `thunderboard`
 
-SiLabs Thunderboard Sense support TODO.
+SiLabs SLTB004A Develompment kit, BRD4166A.\
+  target: `thunderboard2`
 
 # Thinnect TestSystemBoard tsb
 

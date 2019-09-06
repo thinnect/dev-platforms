@@ -1,5 +1,6 @@
 /*
  * SiLabs Wireless Starter Kit Mainboard leds setup.
+ * Also works for Thunderboards.
  *
  * Copyright Thinnect Inc. 2019
  * @license MIT

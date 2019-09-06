@@ -6,6 +6,10 @@
  *                         - BRD4162A
  *                         - ... probably others
  *
+ * Also works for Thunderboards:
+ *                         - thunderboard
+ *                         - thunderboard2
+ *
  * Copyright Thinnect Inc. 2019
  * @license MIT
  * @author Madis Uusjärv, Raido Pahtma

@@ -45,6 +45,11 @@ INCLUDES            += -I$(BOARD_SRC_DIR) -I$(MAINBOARD_SRC_DIR)
 SOURCES             += $(MAINBOARD_SRC_DIR)/platform.c
 SOURCES             += $(MAINBOARD_SRC_DIR)/platform_leds.c
 
+# Pull in default OS configuration, after possible platform-specific overrides
+ifneq ($(CMSIS_CONFIG_DIR),)
+INCLUDES            += -I$(CMSIS_CONFIG_DIR)
+endif
+
 # Allocate UUID for this board
 # NB! UNIQUE: MUST NOT BE USED IN OTHER BOARDS.
 # NB! CONST: CANNOT BE CHANGED FOR THIS BOARD.

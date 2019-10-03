@@ -22,6 +22,15 @@
 #define PLATFORM_LED2_PORT gpioPortA
 #define PLATFORM_LED2_PIN 5
 
+#define PLATFORM_PIN1_PORT gpioPortA
+#define PLATFORM_PIN1_PIN 0
+#define PLATFORM_PIN2_PORT gpioPortA
+#define PLATFORM_PIN2_PIN 1
+#define PLATFORM_PIN3_PORT gpioPortA
+#define PLATFORM_PIN3_PIN 2
+#define PLATFORM_PIN4_PORT gpioPortA
+#define PLATFORM_PIN4_PIN 3
+
 uint32_t PLATFORM_Init() {
 	volatile uint32_t i;
 	uint32_t resetCause;
@@ -94,4 +103,148 @@ uint8_t PLATFORM_LedsGet() {
 	return (GPIO_PinOutGet(PLATFORM_LED0_PORT, PLATFORM_LED0_PIN) << 0)
 	      |(GPIO_PinOutGet(PLATFORM_LED1_PORT, PLATFORM_LED1_PIN) << 1)
 	      |(GPIO_PinOutGet(PLATFORM_LED2_PORT, PLATFORM_LED2_PIN) << 2);
+}
+
+/******************************************************************************
+ * Enable TSB JP1 - PIN1..PIN4
+ *****************************************************************************/
+void PLATFORM_GpioPinInit()
+{
+	CMU_ClockEnable(cmuClock_GPIO, true);
+    GPIO_PinModeSet(PLATFORM_PIN1_PORT, PLATFORM_PIN1_PIN, gpioModePushPull, 0);
+    GPIO_PinModeSet(PLATFORM_PIN2_PORT, PLATFORM_PIN2_PIN, gpioModePushPull, 0);
+    GPIO_PinModeSet(PLATFORM_PIN3_PORT, PLATFORM_PIN3_PIN, gpioModePushPull, 0);
+    GPIO_PinModeSet(PLATFORM_PIN4_PORT, PLATFORM_PIN4_PIN, gpioModePushPull, 0);
+}
+
+/******************************************************************************
+ * Clear GPIO pin
+ * @param pin_nr - TSB pin number (1..4) in JP1 header
+ *****************************************************************************/
+void PLATFORM_ClearGpioPin (uint8_t pin_nr)
+{
+    switch (pin_nr)
+    {
+        case 1:
+            GPIO_PinOutClear(PLATFORM_PIN1_PORT, PLATFORM_PIN1_PIN);
+        break;
+
+        case 2:
+            GPIO_PinOutClear(PLATFORM_PIN2_PORT, PLATFORM_PIN2_PIN);
+        break;
+
+        case 3:
+            GPIO_PinOutClear(PLATFORM_PIN3_PORT, PLATFORM_PIN3_PIN);
+        break;
+
+        case 4:
+            GPIO_PinOutClear(PLATFORM_PIN4_PORT, PLATFORM_PIN4_PIN);
+        break;
+    }
+}
+
+/******************************************************************************
+ * Set GPIO pin
+ * @param pin_nr - TSB pin number (1..4) in JP1 header
+ *****************************************************************************/
+void PLATFORM_SetGpioPin (uint8_t pin_nr)
+{
+    switch (pin_nr)
+    {
+        case 1:
+            GPIO_PinOutSet(PLATFORM_PIN1_PORT, PLATFORM_PIN1_PIN);
+        break;
+
+        case 2:
+            GPIO_PinOutSet(PLATFORM_PIN2_PORT, PLATFORM_PIN2_PIN);
+        break;
+
+        case 3:
+            GPIO_PinOutSet(PLATFORM_PIN3_PORT, PLATFORM_PIN3_PIN);
+        break;
+
+        case 4:
+            GPIO_PinOutSet(PLATFORM_PIN4_PORT, PLATFORM_PIN4_PIN);
+        break;
+    }
+}
+
+/******************************************************************************
+ * Get GPIO pin
+ * @param pin_nr - TSB pin number (1..4) in JP1 header
+ *****************************************************************************/
+void PLATFORM_GetGpioPin (uint8_t pin_nr)
+{
+    switch (pin_nr)
+    {
+        case 1:
+            GPIO_PinOutGet(PLATFORM_PIN1_PORT, PLATFORM_PIN1_PIN);
+        break;
+
+        case 2:
+            GPIO_PinOutGet(PLATFORM_PIN2_PORT, PLATFORM_PIN2_PIN);
+        break;
+
+        case 3:
+            GPIO_PinOutGet(PLATFORM_PIN3_PORT, PLATFORM_PIN3_PIN);
+        break;
+
+        case 4:
+            GPIO_PinOutGet(PLATFORM_PIN4_PORT, PLATFORM_PIN4_PIN);
+        break;
+    }
+}
+
+/******************************************************************************
+ * Toggle GPIO pin
+ * @param pin_nr - TSB pin number (1..4) in JP1 header
+ *****************************************************************************/
+void PLATFORM_ToggleGpioPin (uint8_t pin_nr)
+{
+    switch (pin_nr)
+    {
+        case 1:
+            if (GPIO_PinOutGet(PLATFORM_PIN1_PORT, PLATFORM_PIN1_PIN) == 1)
+            {
+                GPIO_PinOutClear(PLATFORM_PIN1_PORT, PLATFORM_PIN1_PIN);
+            }
+            else
+            {
+                GPIO_PinOutSet(PLATFORM_PIN1_PORT, PLATFORM_PIN1_PIN);
+            }
+        break;
+
+        case 2:
+            if (GPIO_PinOutGet(PLATFORM_PIN2_PORT, PLATFORM_PIN2_PIN) == 1)
+            {
+                GPIO_PinOutClear(PLATFORM_PIN2_PORT, PLATFORM_PIN2_PIN);
+            }
+            else
+            {
+                GPIO_PinOutSet(PLATFORM_PIN2_PORT, PLATFORM_PIN2_PIN);
+            }
+        break;
+
+        case 3:
+            if (GPIO_PinOutGet(PLATFORM_PIN3_PORT, PLATFORM_PIN3_PIN) == 1)
+            {
+                GPIO_PinOutClear(PLATFORM_PIN3_PORT, PLATFORM_PIN3_PIN);
+            }
+            else
+            {
+                GPIO_PinOutSet(PLATFORM_PIN3_PORT, PLATFORM_PIN3_PIN);
+            }
+        break;
+
+        case 4:
+            if (GPIO_PinOutGet(PLATFORM_PIN4_PORT, PLATFORM_PIN4_PIN) == 1)
+            {
+                GPIO_PinOutClear(PLATFORM_PIN4_PORT, PLATFORM_PIN4_PIN);
+            }
+            else
+            {
+                GPIO_PinOutSet(PLATFORM_PIN4_PORT, PLATFORM_PIN4_PIN);
+            }
+        break;
+    }
 }

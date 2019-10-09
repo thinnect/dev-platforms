@@ -110,7 +110,7 @@ uint8_t PLATFORM_LedsGet() {
  *****************************************************************************/
 void PLATFORM_GpioPinInit()
 {
-	CMU_ClockEnable(cmuClock_GPIO, true);
+    CMU_ClockEnable(cmuClock_GPIO, true);
     GPIO_PinModeSet(PLATFORM_PIN1_PORT, PLATFORM_PIN1_PIN, gpioModePushPull, 0);
     GPIO_PinModeSet(PLATFORM_PIN2_PORT, PLATFORM_PIN2_PIN, gpioModePushPull, 0);
     GPIO_PinModeSet(PLATFORM_PIN3_PORT, PLATFORM_PIN3_PIN, gpioModePushPull, 0);
@@ -204,47 +204,19 @@ void PLATFORM_ToggleGpioPin (uint8_t pin_nr)
     switch (pin_nr)
     {
         case 1:
-            if (GPIO_PinOutGet(PLATFORM_PIN1_PORT, PLATFORM_PIN1_PIN) == 1)
-            {
-                GPIO_PinOutClear(PLATFORM_PIN1_PORT, PLATFORM_PIN1_PIN);
-            }
-            else
-            {
-                GPIO_PinOutSet(PLATFORM_PIN1_PORT, PLATFORM_PIN1_PIN);
-            }
+            GPIO_PinOutToggle(PLATFORM_PIN1_PORT, PLATFORM_PIN1_PIN);
         break;
 
         case 2:
-            if (GPIO_PinOutGet(PLATFORM_PIN2_PORT, PLATFORM_PIN2_PIN) == 1)
-            {
-                GPIO_PinOutClear(PLATFORM_PIN2_PORT, PLATFORM_PIN2_PIN);
-            }
-            else
-            {
-                GPIO_PinOutSet(PLATFORM_PIN2_PORT, PLATFORM_PIN2_PIN);
-            }
+            GPIO_PinOutToggle(PLATFORM_PIN2_PORT, PLATFORM_PIN2_PIN);
         break;
 
         case 3:
-            if (GPIO_PinOutGet(PLATFORM_PIN3_PORT, PLATFORM_PIN3_PIN) == 1)
-            {
-                GPIO_PinOutClear(PLATFORM_PIN3_PORT, PLATFORM_PIN3_PIN);
-            }
-            else
-            {
-                GPIO_PinOutSet(PLATFORM_PIN3_PORT, PLATFORM_PIN3_PIN);
-            }
+            GPIO_PinOutToggle(PLATFORM_PIN3_PORT, PLATFORM_PIN3_PIN);
         break;
 
         case 4:
-            if (GPIO_PinOutGet(PLATFORM_PIN4_PORT, PLATFORM_PIN4_PIN) == 1)
-            {
-                GPIO_PinOutClear(PLATFORM_PIN4_PORT, PLATFORM_PIN4_PIN);
-            }
-            else
-            {
-                GPIO_PinOutSet(PLATFORM_PIN4_PORT, PLATFORM_PIN4_PIN);
-            }
+            GPIO_PinOutToggle(PLATFORM_PIN4_PORT, PLATFORM_PIN4_PIN);
         break;
     }
 }

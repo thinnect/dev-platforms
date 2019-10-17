@@ -5,12 +5,31 @@
 // logging, but this tends to create problems with subsequent flashin.
 // So a PA0 / PA1 option has also been defined - EXTERNAL UART.
 
+#if defined(LOGGER_LDMA_UART0)
+
 #define RETARGET_UART        USART0
 #define RETARGET_IRQ_NAME    USART0_RX_IRQHandler
 #define RETARGET_CLK         cmuClock_USART0
 #define RETARGET_IRQn        USART0_RX_IRQn
 #define RETARGET_TX          USART_Tx
 #define RETARGET_RX          USART_Rx
+#define RETARGET_TX_LOCATION _USART_ROUTELOC0_TXLOC_LOC12
+#define RETARGET_RX_LOCATION _USART_ROUTELOC0_RXLOC_LOC9
+#define RETARGET_USART       1
+
+#elif defined(LOGGER_LDMA_LEUART0)
+
+#define RETARGET_UART        LEUART0
+#define RETARGET_IRQ_NAME    LEUART0_IRQHandler
+#define RETARGET_CLK         cmuClock_LEUART0
+#define RETARGET_IRQn        LEUART0_IRQn
+#define RETARGET_TX          LEUART_Tx
+#define RETARGET_RX          LEUART_Rx
+#define RETARGET_TX_LOCATION _LEUART_ROUTELOC0_TXLOC_LOC12
+#define RETARGET_RX_LOCATION _LEUART_ROUTELOC0_RXLOC_LOC9
+#define RETARGET_LEUART      1
+
+#endif
 
 #if defined(LOG_USE_JTAG_UART) // Onboard port shared with JTAG pins
 
@@ -34,13 +53,9 @@
 
 #define RETARGET_TXPORT      gpioPortC
 #define RETARGET_TXPIN       7
-#define RETARGET_TX_LOCATION _USART_ROUTELOC0_TXLOC_LOC12
 #define RETARGET_RXPORT      gpioPortB
 #define RETARGET_RXPIN       15
-#define RETARGET_RX_LOCATION _USART_ROUTELOC0_RXLOC_LOC9
 
 #endif // UART/pin selection
-
-#define RETARGET_USART       1  // vs RETARGET_LEUART
 
 #define RETARGET_PERIPHERAL_ENABLE()

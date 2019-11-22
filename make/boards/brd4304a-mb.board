@@ -26,6 +26,9 @@ LDLIBS   += $(SILABS_SDKDIR)/platform/radio/rail_lib/autogen/librail_release/lib
 # Use SiLabs HAL and the mainboards virtual UART
 CFLAGS   += -DHAL_CONFIG -DHAL_VCOM_ENABLE
 
+# The LEDs on this platform are inverted
+CFLAGS   += -DPLATFORM_LEDS_INVERTED
+
 INCLUDES += -I$(SILABS_SDKDIR)/platform/radio/rail_lib/chip/efr32/efr32xg1x  \
             -I$(SILABS_SDKDIR)/platform/Device/SiliconLabs/EFR32MG12P/Include \
             -I$(SILABS_SDKDIR)/platform/CMSIS/Include
@@ -43,7 +46,12 @@ BOARD_SRC_DIR       := $(BOARD_MAKE_DIR)/../../src/boards/$(BOARD_NAME)
 MAINBOARD_SRC_DIR   := $(BOARD_MAKE_DIR)/../../src/boards/$(MAINBOARD_NAME)
 INCLUDES            += -I$(BOARD_SRC_DIR) -I$(MAINBOARD_SRC_DIR)
 SOURCES             += $(MAINBOARD_SRC_DIR)/platform.c
-SOURCES             += $(BOARD_SRC_DIR)/platform_leds.c
+
+# Pull in the platform_io.c
+ifndef NODE_PLATFORM_DIR
+$(error NODE_PLATFORM_DIR has not been defined!)
+endif
+SOURCES             += $(NODE_PLATFORM_DIR)/silabs/platform_io.c
 
 # Pull in default OS configuration, after possible platform-specific overrides
 ifneq ($(CMSIS_CONFIG_DIR),)

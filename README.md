@@ -28,10 +28,19 @@ SiLabs SLTB001A Development kit, BRD4160A. (EOL by SiLabs)\
 SiLabs SLTB004A Develompment kit, BRD4166A.\
   target: `thunderboard2`
 
-# Thinnect TestSystemBoard tsb
+# Thinnect TestSystemBoards tsb0, tsb1, tsb2
 
-target: `tsb`
+target: `tsb0`
 
-The TestSystemBoard is a custom PCB with an EFR32MG12P432F1024GM48 MCU,
-an ft2232d based jtag programmer, 64Mbit JEDEC dataflash, a button and 3 LEDs.
-The board has an SMA connector.
+target: `tsb1`
+
+target: `tsb2`
+
+The TestSystemBoards are a series of custom PCBs with Silabs EFR32 MCUs.
+The TSB0 and TSB1 have EFR32MG12P432F1024GM48 MCUs,
+the TSB2 has an EFR32BG21A020F1024IM32 MCU. They all have an ft2232d based jtag
+programmer built in, a 64Mbit JEDEC dataflash, a button and 3 LEDs.
+The boards have an SMA connector for the antenna.
+
+The TSB0 does not have a 32.768kHz Crystal Oscillator, the TSB1 fixes this
+shortcoming.

@@ -10,11 +10,13 @@
 
 #include "bsp.h" // Make use of GPIO mappings already defined by SiLabs
 
+#define PLATFORM_LED_COUNT 2
 #define PLATFORM_LED0_PORT BSP_LED0_PORT
 #define PLATFORM_LED0_PIN  BSP_LED0_PIN
 #define PLATFORM_LED1_PORT BSP_LED1_PORT
 #define PLATFORM_LED1_PIN  BSP_LED1_PIN
 
+#define PLATFORM_PIN_COUNT 0
 //#define PLATFORM_PIN1_PORT gpioPortA
 //#define PLATFORM_PIN1_PIN 0
 //#define PLATFORM_PIN2_PORT gpioPortA

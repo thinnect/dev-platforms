@@ -8,6 +8,9 @@
 #ifndef PLATFORM_IO_H_
 #define PLATFORM_IO_H_
 
+#include "em_gpio.h"
+
+#define PLATFORM_LED_COUNT 3
 #define PLATFORM_LED0_PORT gpioPortD
 #define PLATFORM_LED0_PIN  4
 #define PLATFORM_LED1_PORT gpioPortC
@@ -15,6 +18,7 @@
 #define PLATFORM_LED2_PORT gpioPortD
 #define PLATFORM_LED2_PIN  2
 
+#define PLATFORM_PIN_COUNT 4
 #define PLATFORM_PIN1_PORT gpioPortB
 #define PLATFORM_PIN1_PIN  1
 #define PLATFORM_PIN2_PORT gpioPortB

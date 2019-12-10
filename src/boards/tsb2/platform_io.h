@@ -8,6 +8,7 @@
 #ifndef PLATFORM_IO_H_
 #define PLATFORM_IO_H_
 
+#define PLATFORM_LED_COUNT 3
 #define PLATFORM_LED0_PORT gpioPortD
 #define PLATFORM_LED0_PIN  4
 #define PLATFORM_LED1_PORT gpioPortC

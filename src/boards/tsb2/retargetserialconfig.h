@@ -16,6 +16,8 @@
 #define RETARGET_RXPORT      gpioPortA
 #define RETARGET_RXPIN       1
 
+#define LOGGER_LDMA_USART1
+
 #elif defined(LOG_USE_EXTERNAL_UART) // First 2 pins in left header
 
 #define RETARGET_UART        USART1
@@ -29,6 +31,8 @@
 #define RETARGET_TXPIN       1
 #define RETARGET_RXPORT      gpioPortB
 #define RETARGET_RXPIN       0
+
+#define LOGGER_LDMA_USART1
 
 #else // non-JTAG UART
 
@@ -44,10 +48,10 @@
 #define RETARGET_RXPORT      gpioPortC
 #define RETARGET_RXPIN       0
 
+#define LOGGER_LDMA_USART2
+
 #endif // pin selection
 
 #define RETARGET_USART       1  // vs RETARGET_LEUART
 
 #define RETARGET_PERIPHERAL_ENABLE()
-
-#define LOGGER_LDMA_USART0

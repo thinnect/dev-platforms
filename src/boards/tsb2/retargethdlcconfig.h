@@ -1,5 +1,5 @@
 /**
- * HDLC data port configuration for tsb0.
+ * HDLC data port configuration for tsb2.
  *
  * Copyright Thinnect Inc. 2019
  * @license MIT
@@ -13,8 +13,6 @@
 #define SERIAL_HDLC_IRQ_NAME    USART1_RX_IRQHandler
 #define SERIAL_HDLC_CLOCK       cmuClock_USART1
 #define SERIAL_HDLC_IRQn        USART1_RX_IRQn
-//#define RETARGET_TX            USART_Tx
-//#define RETARGET_RX            USART_Rx
 #define SERIAL_HDLC_UART_INDEX  1
 #define SERIAL_HDLC_TXPORT         gpioPortA
 #define SERIAL_HDLC_TXPIN       2
@@ -27,8 +25,6 @@
 #define SERIAL_HDLC_IRQ_NAME USART2_RX_IRQHandler
 #define SERIAL_HDLC_CLOCK    cmuClock_USART2
 #define SERIAL_HDLC_IRQn     USART2_RX_IRQn
-//#define RETARGET_TX          USART_Tx
-//#define RETARGET_RX          USART_Rx
 #define SERIAL_HDLC_UART_INDEX  2
 #define SERIAL_HDLC_TXPORT      gpioPortC
 #define SERIAL_HDLC_TXPIN       1

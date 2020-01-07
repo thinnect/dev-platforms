@@ -64,17 +64,14 @@ UUID_BOARD          := b1f61ed1-bc69-4850-9d09-1f388f554653
 
 # Maximum size limits for binaries in memory, their start addresses
 BOOTLOADER_START    := 0x00000
-BOOTLOADER_MAX_LEN  := 0x14000
+BOOTLOADER_MAX_LEN  := 0x20000
 STAGE1_START        := 0x00000
-STAGE1_MAX_LEN      := 0x0C000
-STAGE2_START        := 0x0C000
-STAGE2_MAX_LEN      := 0x08000
-APP_START           ?= 0x14000
-APP_MAX_LEN         := 0xE0000
+STAGE1_MAX_LEN      := 0x10000
+STAGE2_START        := 0x10000
+STAGE2_MAX_LEN      := 0x10000
+APP_START           ?= 0x20000
+APP_MAX_LEN         := 0xDE000
 
 # Define peripherals
 MCU_FLASH_PAGE_SIZE := 2048
 $(call passVarToCpp,CFLAGS,MCU_FLASH_PAGE_SIZE)
-
-TIMER_PERIPHERAL_FREQ := 38400000
-$(call passVarToCpp,CFLAGS,TIMER_PERIPHERAL_FREQ)

@@ -10,6 +10,8 @@ BOARD_NAME          := brd4304a
 BOARD_MAKE_DIR      := $(patsubst %/,%,$(dir $(lastword $(MAKEFILE_LIST))))
 
 MAINBOARD_NAME      := brd4001a
+# Set board default rfpower before including default from arch
+DEFAULT_RFPOWER_DBM ?= 10
 
 # Include the architecture definition
 $(call includeArch,efr32xg1x)
@@ -19,27 +21,37 @@ MCU_ARCH            := efr32xg1x
 MCU_FAMILY          := efr32xg12
 
 # Board options for compiler and linker, libraries
-CFLAGS   += -D$(MCU_PART)
-LDFLAGS  += -Wl,-T,$(SILABS_SDKDIR)/platform/Device/SiliconLabs/EFR32MG12P/Source/GCC/efr32mg12p.ld
-LDLIBS   += $(SILABS_SDKDIR)/platform/radio/rail_lib/autogen/librail_release/librail_efr32xg12_gcc_release.a
+CFLAGS      += -D$(MCU_PART)
+LDFLAGS     += -Wl,-T,$(SILABS_SDKDIR)/platform/Device/SiliconLabs/EFR32MG12P/Source/GCC/efr32mg12p.ld
+LDLIBS      += $(SILABS_SDKDIR)/platform/radio/rail_lib/autogen/librail_release/librail_efr32xg12_gcc_release.a
 
 # Use SiLabs HAL and the mainboards virtual UART
-CFLAGS   += -DHAL_CONFIG -DHAL_VCOM_ENABLE
+CFLAGS      += -DHAL_CONFIG -DHAL_VCOM_ENABLE
 
 # The LEDs on this platform are inverted
-CFLAGS   += -DPLATFORM_LEDS_INVERTED
+CFLAGS      += -DPLATFORM_LEDS_INVERTED
 
-INCLUDES += -I$(SILABS_SDKDIR)/platform/radio/rail_lib/chip/efr32/efr32xg1x  \
-            -I$(SILABS_SDKDIR)/platform/Device/SiliconLabs/EFR32MG12P/Include \
-            -I$(SILABS_SDKDIR)/platform/CMSIS/Include
+INCLUDES    += \
+    -I$(SILABS_SDKDIR)/platform/radio/rail_lib/chip/efr32/efr32xg1x  \
+    -I$(SILABS_SDKDIR)/platform/Device/SiliconLabs/EFR32MG12P/Include \
+    -I$(SILABS_SDKDIR)/platform/CMSIS/Include
 
 # retargetserialconfig.h and bsp.h and bsphalconfig.h, hal-config-board.h?
-INCLUDES += -I$(SILABS_SDKDIR)/hardware/kit/EFR32MG12_BRD4304A/config \
-            -I$(SILABS_SDKDIR)/hardware/kit/common/bsp \
-            -I$(SILABS_SDKDIR)/hardware/kit/common/halconfig
+INCLUDES    += -I$(SILABS_SDKDIR)/hardware/kit/EFR32MG12_BRD4304A/config \
+               -I$(SILABS_SDKDIR)/hardware/kit/common/bsp \
+               -I$(SILABS_SDKDIR)/hardware/kit/common/halconfig
 
-SOURCES  += $(SILABS_SDKDIR)/platform/Device/SiliconLabs/EFR32MG12P/Source/GCC/startup_efr32mg12p.c \
-            $(SILABS_SDKDIR)/platform/Device/SiliconLabs/EFR32MG12P/Source/system_efr32mg12p.c
+SOURCES     += \
+    $(SILABS_SDKDIR)/platform/Device/SiliconLabs/EFR32MG12P/Source/GCC/startup_efr32mg12p.c \
+    $(SILABS_SDKDIR)/platform/Device/SiliconLabs/EFR32MG12P/Source/system_efr32mg12p.c
+
+FREERTOS_PORT_INC = -I$(FREERTOS_DIR)/portable/GCC/ARM_CM3/
+
+FREERTOS_PORT_SRC = $(FREERTOS_DIR)/portable/GCC/ARM_CM3/port.c \
+                    $(FREERTOS_DIR)/portable/MemMang/heap_5.c
+
+CFLAGS += -DRADIO_INTERRUPT_PRIORITY=3
+CFLAGS += -DLDMA_INTERRUPT_PRIORITY=3
 
 # Pull in the board support code
 BOARD_SRC_DIR       := $(BOARD_MAKE_DIR)/../../src/boards/$(BOARD_NAME)
@@ -76,6 +88,3 @@ APP_MAX_LEN         := 0xE0000
 # Define peripherals
 MCU_FLASH_PAGE_SIZE := 2048
 $(call passVarToCpp,CFLAGS,MCU_FLASH_PAGE_SIZE)
-
-TIMER_PERIPHERAL_FREQ := 38400000
-$(call passVarToCpp,CFLAGS,TIMER_PERIPHERAL_FREQ)

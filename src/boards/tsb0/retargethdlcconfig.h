@@ -21,6 +21,15 @@
 #define SERIAL_HDLC_RXPIN     0
 #define SERIAL_HDLC_RXLOC     USART_ROUTELOC0_RXLOC_LOC23
 
+#elif defined(HDLC_USE_EXTERNAL_UART) // First 2 pins in left header
+
+#define SERIAL_HDLC_TXPORT    gpioPortA
+#define SERIAL_HDLC_TXPIN     0
+#define SERIAL_HDLC_TXLOC     USART_ROUTELOC0_TXLOC_LOC0
+#define SERIAL_HDLC_RXPORT    gpioPortA
+#define SERIAL_HDLC_RXPIN     1
+#define SERIAL_HDLC_RXLOC     USART_ROUTELOC0_RXLOC_LOC0
+
 #else // Use the non-JTAG uart
 
 #define SERIAL_HDLC_TXPORT    gpioPortC

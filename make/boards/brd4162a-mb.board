@@ -19,24 +19,44 @@ MCU_ARCH            := efr32xg1x
 MCU_FAMILY          := efr32xg1
 
 # Board options for compiler and linker, libraries
-CFLAGS   += -D$(MCU_PART)
-LDFLAGS  += -Wl,-T,$(SILABS_SDKDIR)/platform/Device/SiliconLabs/EFR32MG12P/Source/GCC/efr32mg12p.ld
-LDLIBS   += $(SILABS_SDKDIR)/platform/radio/rail_lib/autogen/librail_release/librail_efr32xg12_gcc_release.a
+CFLAGS      += -D$(MCU_PART)
+LDFLAGS     += -Wl,-T,$(SILABS_SDKDIR)/platform/Device/SiliconLabs/EFR32MG12P/Source/GCC/efr32mg12p.ld
+LDLIBS      += $(SILABS_SDKDIR)/platform/radio/rail_lib/autogen/librail_release/librail_efr32xg12_gcc_release.a
 
 # Use SiLabs HAL and the mainboards virtual UART
-CFLAGS   += -DHAL_CONFIG -DHAL_VCOM_ENABLE
+CFLAGS      += -DHAL_CONFIG -DHAL_VCOM_ENABLE
 
-INCLUDES += -I$(SILABS_SDKDIR)/platform/radio/rail_lib/chip/efr32/efr32xg1x  \
-            -I$(SILABS_SDKDIR)/platform/Device/SiliconLabs/EFR32MG12P/Include \
-            -I$(SILABS_SDKDIR)/platform/CMSIS/Include
+INCLUDES    += \
+    -I$(SILABS_SDKDIR)/platform/radio/rail_lib/chip/efr32/efr32xg1x  \
+    -I$(SILABS_SDKDIR)/platform/Device/SiliconLabs/EFR32MG12P/Include \
+    -I$(SILABS_SDKDIR)/platform/CMSIS/Include
 
 # retargetserialconfig.h and bsp.h and bsphalconfig.h, hal-config-board.h?
-INCLUDES += -I$(SILABS_SDKDIR)/hardware/kit/EFR32MG12_BRD4162A/config \
-            -I$(SILABS_SDKDIR)/hardware/kit/common/bsp \
-            -I$(SILABS_SDKDIR)/hardware/kit/common/halconfig
+INCLUDES    += -I$(SILABS_SDKDIR)/hardware/kit/EFR32MG12_BRD4162A/config \
+               -I$(SILABS_SDKDIR)/hardware/kit/common/bsp \
+               -I$(SILABS_SDKDIR)/hardware/kit/common/halconfig
 
-SOURCES  += $(SILABS_SDKDIR)/platform/Device/SiliconLabs/EFR32MG12P/Source/GCC/startup_efr32mg12p.c \
-            $(SILABS_SDKDIR)/platform/Device/SiliconLabs/EFR32MG12P/Source/system_efr32mg12p.c
+SOURCES     += \
+    $(SILABS_SDKDIR)/platform/Device/SiliconLabs/EFR32MG12P/Source/GCC/startup_efr32mg12p.c \
+    $(SILABS_SDKDIR)/platform/Device/SiliconLabs/EFR32MG12P/Source/system_efr32mg12p.c
+
+FPU_SOFT ?= 0 # Set to 1 to use float-abi=soft and M3 ports for FreeRTOS
+ifeq ($(FPU_SOFT),1)
+	FREERTOS_PORT = ARM_CM3
+else
+	FREERTOS_PORT = ARM_CM4F
+endif
+
+FREERTOS_PORT_INC = -I$(FREERTOS_DIR)/portable/GCC/$(FREERTOS_PORT)
+
+FREERTOS_PORT_SRC = $(FREERTOS_DIR)/portable/GCC/$(FREERTOS_PORT)/port.c \
+                    $(FREERTOS_DIR)/portable/MemMang/heap_5.c
+
+CFLAGS += -DRADIO_INTERRUPT_PRIORITY=3
+CFLAGS += -DLDMA_INTERRUPT_PRIORITY=3
+
+# Use the high-power PA
+CFLAGS += -DDEFAULT_RAIL_TX_POWER_MODE_2P4_HP
 
 # Pull in the board support code
 BOARD_SRC_DIR       := $(BOARD_MAKE_DIR)/../../src/boards/$(BOARD_NAME)
@@ -73,6 +93,3 @@ APP_MAX_LEN         := 0xE0000
 # Define peripherals
 MCU_FLASH_PAGE_SIZE := 2048
 $(call passVarToCpp,CFLAGS,MCU_FLASH_PAGE_SIZE)
-
-TIMER_PERIPHERAL_FREQ := 38400000
-$(call passVarToCpp,CFLAGS,TIMER_PERIPHERAL_FREQ)

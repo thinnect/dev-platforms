@@ -16,14 +16,15 @@ DEFAULT_RFPOWER_DBM ?= 10
 # Include the architecture definition
 $(call includeArch,efr32xg1x)
 
-MCU_PART            := EFR32MG12P432F1024GM48
+MCU_PART            := MGM12P32F1024GA
 MCU_ARCH            := efr32xg1x
 MCU_FAMILY          := efr32xg12
 
 # Board options for compiler and linker, libraries
 CFLAGS      += -D$(MCU_PART)
-LDFLAGS     += -Wl,-T,$(SILABS_SDKDIR)/platform/Device/SiliconLabs/EFR32MG12P/Source/GCC/efr32mg12p.ld
-LDLIBS      += $(SILABS_SDKDIR)/platform/radio/rail_lib/autogen/librail_release/librail_efr32xg12_gcc_release.a
+LDFLAGS     += -Wl,-T,$(SILABS_SDKDIR)/platform/Device/SiliconLabs/MGM12/Source/GCC/mgm12.ld
+LDLIBS      += $(SILABS_SDKDIR)/platform/radio/rail_lib/autogen/librail_release/librail_module_efr32xg12_gcc_release.a
+LDLIBS      += $(SILABS_SDKDIR)/platform/radio/rail_lib/autogen/librail_release/librail_config_mgm12p32f1024ga_gcc.a
 
 # Use SiLabs HAL and the mainboards virtual UART
 CFLAGS      += -DHAL_CONFIG -DHAL_VCOM_ENABLE
@@ -33,8 +34,11 @@ CFLAGS      += -DPLATFORM_LEDS_INVERTED
 
 INCLUDES    += \
     -I$(SILABS_SDKDIR)/platform/radio/rail_lib/chip/efr32/efr32xg1x  \
-    -I$(SILABS_SDKDIR)/platform/Device/SiliconLabs/EFR32MG12P/Include \
+    -I$(SILABS_SDKDIR)/platform/Device/SiliconLabs/MGM12/Include \
     -I$(SILABS_SDKDIR)/platform/CMSIS/Include
+
+# sl_module.h only used for module part numbers in addition to em_device.h
+INCLUDES    += -I$(SILABS_SDKDIR)/hardware/module/config
 
 # retargetserialconfig.h and bsp.h and bsphalconfig.h, hal-config-board.h?
 INCLUDES    += -I$(SILABS_SDKDIR)/hardware/kit/EFR32MG12_BRD4304A/config \
@@ -42,8 +46,8 @@ INCLUDES    += -I$(SILABS_SDKDIR)/hardware/kit/EFR32MG12_BRD4304A/config \
                -I$(SILABS_SDKDIR)/hardware/kit/common/halconfig
 
 SOURCES     += \
-    $(SILABS_SDKDIR)/platform/Device/SiliconLabs/EFR32MG12P/Source/GCC/startup_efr32mg12p.c \
-    $(SILABS_SDKDIR)/platform/Device/SiliconLabs/EFR32MG12P/Source/system_efr32mg12p.c
+    $(SILABS_SDKDIR)/platform/Device/SiliconLabs/MGM12/Source/GCC/startup_mgm12.c \
+    $(SILABS_SDKDIR)/platform/Device/SiliconLabs/MGM12/Source/system_mgm12.c
 
 FPU_SOFT ?= 0 # Set to 1 to use float-abi=soft and M3 ports for FreeRTOS
 ifeq ($(FPU_SOFT),1)

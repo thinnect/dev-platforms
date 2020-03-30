@@ -50,7 +50,7 @@ CFLAGS += -DLDMA_INTERRUPT_PRIORITY=3
 
 # Use the high-power PA
 # FIXME: probably using another PA makes more sense for the tsb0, however must be "calibrated" first
-CFLAGS += -DDEFAULT_RAIL_TX_POWER_MODE_2P4_HP
+CFLAGS += -DDEFAULT_RAIL_TX_POWER_MODE="'H'"
 
 # Pull in the board support code
 BOARD_SRC_DIR       := $(BOARD_MAKE_DIR)/../../src/boards/$(BOARD_NAME)

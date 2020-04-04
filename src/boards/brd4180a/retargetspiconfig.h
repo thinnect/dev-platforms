@@ -1,0 +1,19 @@
+/**
+ * Configuration for BRD4180A
+ */
+#ifndef RETARGETSPICONFIG_H_
+#define RETARGETSPICONFIG_H_
+
+#define RETARGET_SPI_UART       USART2
+#define RETARGET_SPI_CLOCK      cmuClock_USART2
+#define RETARGET_SPI_UART_INDEX 2
+#define RETARGET_SPI_MISO_PORT  gpioPortC
+#define RETARGET_SPI_MISO_PIN   1
+#define RETARGET_SPI_MOSI_PORT  gpioPortC
+#define RETARGET_SPI_MOSI_PIN   0
+#define RETARGET_SPI_SCK_PORT   gpioPortC
+#define RETARGET_SPI_SCK_PIN    2
+#define RETARGET_SPI_CS_PORT    gpioPortC
+#define RETARGET_SPI_CS_PIN     3
+
+#endif//RETARGETSPICONFIG_H_

@@ -1,0 +1,4 @@
+# This is a library build target, targeting the efr32xg21 family
+
+# Pull in the board definition
+$(call includeBoard,efr32xg21)

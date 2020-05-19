@@ -1,6 +1,6 @@
-#pragma once
-
-// Configuration for thinbox3
+// Configuration for tsb2
+#ifndef RETARGETSPICONFIG_H_
+#define RETARGETSPICONFIG_H_
 
 #define RETARGET_SPI_UART       USART0
 #define RETARGET_SPI_CLOCK      cmuClock_USART0
@@ -13,3 +13,5 @@
 #define RETARGET_SPI_SCK_PIN    0
 #define RETARGET_SPI_CS_PORT    gpioPortA
 #define RETARGET_SPI_CS_PIN     4
+
+#endif//RETARGETSPICONFIG_H_

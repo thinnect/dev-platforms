@@ -1,6 +1,6 @@
 #pragma once
 
-// Configuration for tsb
+// Configuration for tsb0
 
 #define RETARGET_SPI_UART      USART3
 #define RETARGET_SPI_CLOCK     cmuClock_USART3

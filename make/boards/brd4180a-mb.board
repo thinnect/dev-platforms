@@ -49,6 +49,9 @@ CFLAGS += -DLDMA_INTERRUPT_PRIORITY=5
 # Use the HP PA
 CFLAGS += -DDEFAULT_RAIL_TX_POWER_MODE="'H'"
 
+# Antenna is on IO2
+CFLAGS += -DDEFAULT_ANTENNA_PATH_IO2
+
 # Pull in the board support code
 BOARD_SRC_DIR       := $(BOARD_MAKE_DIR)/../../src/boards/$(BOARD_NAME)
 MAINBOARD_SRC_DIR   := $(BOARD_MAKE_DIR)/../../src/boards/$(MAINBOARD_NAME)

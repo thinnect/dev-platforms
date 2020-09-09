@@ -19,6 +19,18 @@
 #define SERIAL_HDLC_RXPORT      gpioPortA
 #define SERIAL_HDLC_RXPIN       1
 
+#elif defined(HDLC_USE_EXTERNAL_UART)
+
+#define SERIAL_HDLC_UART        USART1
+#define SERIAL_HDLC_IRQ_NAME    USART1_RX_IRQHandler
+#define SERIAL_HDLC_CLOCK       cmuClock_USART1
+#define SERIAL_HDLC_IRQn        USART1_RX_IRQn
+#define SERIAL_HDLC_UART_INDEX  1
+#define SERIAL_HDLC_TXPORT      gpioPortB
+#define SERIAL_HDLC_TXPIN       0
+#define SERIAL_HDLC_RXPORT      gpioPortB
+#define SERIAL_HDLC_RXPIN       1
+
 #else // Use the non-JTAG uart
 
 #define SERIAL_HDLC_UART        USART2

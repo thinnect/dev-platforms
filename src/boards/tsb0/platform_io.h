@@ -32,6 +32,9 @@
 #define PLATFORM_BUTTON_PORT gpioPortF
 #define PLATFORM_BUTTON_PIN  4
 
+#define PLATFORM_I2C_COUNT 1
+#define PLATFORM_I2CS { I2C0 }
+
 #define PLATFORM_ADC_COUNT 1
 #define PLATFORM_ADCS { ADC0 }
 

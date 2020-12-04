@@ -36,6 +36,6 @@
 #define PLATFORM_I2CS { I2C0 }
 
 #define PLATFORM_ADC_COUNT 1
-#define PLATFORM_ADCS { ADC0 }
+#define PLATFORM_ADCS { IADC0 }
 
 #endif//PLATFORM_IO_H_

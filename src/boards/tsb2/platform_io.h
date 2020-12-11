@@ -9,6 +9,7 @@
 #define PLATFORM_IO_H_
 
 #include "em_gpio.h"
+#include "em_adc.h"
 
 #define PLATFORM_LED_COUNT 3
 #define PLATFORM_LED0_PORT gpioPortD
@@ -30,5 +31,11 @@
 
 #define PLATFORM_BUTTON_PORT gpioPortC
 #define PLATFORM_BUTTON_PIN  3
+
+#define PLATFORM_I2C_COUNT 1
+#define PLATFORM_I2CS { I2C0 }
+
+#define PLATFORM_ADC_COUNT 1
+#define PLATFORM_ADCS { IADC0 }
 
 #endif//PLATFORM_IO_H_

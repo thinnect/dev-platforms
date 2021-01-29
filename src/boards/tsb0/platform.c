@@ -1,9 +1,8 @@
 /*
  * Thinnect TestSystemBoard0 platform.
  *
- * Copyright Thinnect Inc.
+ * Copyright Thinnect Inc. 2019
  * @license MIT
- * @author Raido Pahtma
  */
 #include "platform.h"
 #include <stdio.h>
@@ -15,7 +14,8 @@
 #include "em_gpio.h"
 #include "em_msc.h"
 
-uint32_t PLATFORM_Init() {
+uint32_t PLATFORM_Init ()
+{
 	volatile uint32_t i;
 	uint32_t resetCause;
 
@@ -31,7 +31,8 @@ uint32_t PLATFORM_Init() {
 
 	for(i = 0; i < 3000000; i++)__asm__("nop");
 
-	if(resetCause & RMU_RSTCAUSE_EM4RST){
+	if(resetCause & RMU_RSTCAUSE_EM4RST)
+	{
 		EMU->CMD = EMU_CMD_EM4UNLATCH;
 	}
 
@@ -51,6 +52,12 @@ uint32_t PLATFORM_Init() {
 	return resetCause;
 }
 
-void PLATFORM_RadioInit() {
+void PLATFORM_RadioInit ()
+{
 	// Nothing to do
+}
+
+void PLATFORM_HardReset ()
+{
+	NVIC_SystemReset(); // TODO investigate if the MCU supports hard-reset
 }

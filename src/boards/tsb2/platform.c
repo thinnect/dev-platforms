@@ -1,10 +1,9 @@
 /*
  * Thinnect TestSystemBoard2 platform.
  *
- * Copyright Thinnect Inc.
+ * Copyright Thinnect Inc. 2019
  * @license MIT
- * @author Raido Pahtma
- */
+  */
 #include "platform.h"
 #include <stdio.h>
 #include <stdint.h>
@@ -31,7 +30,8 @@ uint32_t PLATFORM_Init ()
 
 	for(i = 0; i < 3000000; i++)__asm__("nop");
 
-	if(resetCause & EMU_RSTCAUSE_EM4){
+	if (resetCause & EMU_RSTCAUSE_EM4)
+	{
 		EMU->CMD = EMU_CMD_EM4UNLATCH;
 	}
 
@@ -65,4 +65,9 @@ uint32_t PLATFORM_Init ()
 void PLATFORM_RadioInit ()
 {
 	// Nothing to do
+}
+
+void PLATFORM_HardReset ()
+{
+	NVIC_SystemReset(); // No hard-reset capability available
 }

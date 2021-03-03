@@ -42,6 +42,7 @@ FREERTOS_PORT_SRC = $(FREERTOS_DIR)/portable/GCC/ARM_CM33_NTZ/non_secure/port.c 
 CFLAGS += -DRADIO_INTERRUPT_PRIORITY=5
 CFLAGS += -DLDMA_INTERRUPT_PRIORITY=5
 CFLAGS += -DEMDRV_DMADRV_DMA_IRQ_PRIORITY=5
+CFLAGS += -DSERIAL_HDLC_IRQ_PRIORITY=5
 
 # Use the 0dBm PA
 DEFAULT_RAIL_TX_POWER_MODE ?= "'L'"
@@ -49,9 +50,6 @@ CFLAGS += -DDEFAULT_RAIL_TX_POWER_MODE=$(DEFAULT_RAIL_TX_POWER_MODE)
 
 # Actual antenna path is IO2, but testsystem uses IO1 to intentionally detune
 # CFLAGS += -DDEFAULT_ANTENNA_PATH_IO2
-
-# IRQ Handler priority
-CFLAGS += -DSERIAL_HDLC_IRQ_PRIORITY=5
 
 # Pull in the board support code
 BOARD_SRC_DIR       := $(BOARD_MAKE_DIR)/../../src/boards/$(BOARD_NAME)

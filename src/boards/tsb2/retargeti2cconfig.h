@@ -6,6 +6,9 @@
  * Copyright Thinnect Inc. 2020
  * @license MIT
  */
+
+ #include "em_i2c.h"
+
 #ifndef RETARGETI2CCONFIG_H_
 #define RETARGETI2CCONFIG_H_
 

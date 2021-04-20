@@ -44,3 +44,7 @@ The boards have an SMA connector for the antenna.
 
 The TSB0 does not have a 32.768kHz Crystal Oscillator, the TSB1 fixes this
 shortcoming.
+
+# Thinnect RaspberryPi radio module murps
+
+target: `murps`

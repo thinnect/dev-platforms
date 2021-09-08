@@ -20,4 +20,10 @@
 
 #define PLATFORM_PIN_COUNT 0
 
+#define PLATFORM_ADC_COUNT 1
+#define PLATFORM_ADCS { IADC0 }
+
+#define PLATFORM_I2C_COUNT 1
+#define PLATFORM_I2CS { I2C0 }
+
 #endif//PLATFORM_IO_H_
